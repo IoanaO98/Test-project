@@ -11,6 +11,7 @@ import {
   selector: 'app-display',
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.scss'],
+  standalone: false,
 })
 export class DisplayComponent implements OnInit {
   @Output() titleChange = new EventEmitter<string>();
