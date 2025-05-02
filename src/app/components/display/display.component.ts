@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-display',
   templateUrl: './display.component.html',
-  styleUrls: ['./display.component.scss']
+  styleUrls: ['./display.component.scss'],
 })
 export class DisplayComponent implements OnInit {
+  @Output() titleChange = new EventEmitter<string>();
+  @Output() subtitleChange = new EventEmitter<string>();
+  @Input() isDisabled: boolean = false;
+  titleInput: string = '';
+  subtitleInput: string = '';
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

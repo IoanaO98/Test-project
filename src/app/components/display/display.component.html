@@ -1,11 +1,11 @@
 <div style="display: flex; flex-direction: column;">
-<mat-form-field class="example-form-field" appearance="fill">
+  <mat-form-field class="example-form-field" appearance="fill">
     <mat-label>Title Input</mat-label>
-    <input matInput type="text" >
+    <input matInput type="text" [(ngModel)]="titleInput" [disabled]="isDisabled" />
   </mat-form-field>
 
   <mat-form-field class="example-form-field" appearance="fill">
     <mat-label>Subtitle Input</mat-label>
-    <input matInput type="text" >
+    <input matInput type="text" [(ngModel)]="subtitleInput" [disabled]="isDisabled" />
   </mat-form-field>
 </div>
