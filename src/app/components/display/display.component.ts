@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'app-display',
@@ -13,6 +20,23 @@ export class DisplayComponent implements OnInit {
   titleInput: string = '';
   subtitleInput: string = '';
   constructor() {}
-
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['resetInput'] && changes['resetInput'].currentValue === true) {
+      this.titleInput = '';
+      this.subtitleInput = '';
+      this.titleChange.emit('');
+      this.subtitleChange.emit('');
+    }
+  }
   ngOnInit(): void {}
+
+  onTitleInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.titleChange.emit(input.value);
+  }
+
+  onSubtitleInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.subtitleChange.emit(input.value);
+  }
 }
