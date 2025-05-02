@@ -1,5 +1,7 @@
 <div style="display: flex; gap: 20px; flex-direction: column;">
-  <mat-card matRipple [ngClass]="[color, isActive ? 'active' : '', isDisabled ? 'disabled' : '']">
+  <button mat-raised-button color="primary" (click)="resetCard()">Reset Card</button>
+  <mat-card matRipple [ngClass]="[color, isActive ? 'active' : '', isDisabled ? 'disabled' : '']"
+    (click)="toggleActive()">
     <div class="card-top-row">
       <div class="card-text-col">
         <mat-card-title class="mat-card-title">{{ title }}</mat-card-title>
@@ -11,7 +13,7 @@
   </mat-card>
 
   <div class="card-container" *ngIf="isActive">
-    <h1> {{ containerTitle }} <mat-icon class="icon-close">close</mat-icon>
+    <h1> {{ containerTitle }} <mat-icon class="icon-close" (click)="close()">close</mat-icon>
     </h1>
 
     Please detach component and add the content that you need. The icon from the bottom should be the same with the icon

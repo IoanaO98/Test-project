@@ -1,33 +1,62 @@
 <div class="container">
   <h1>Test</h1>
-  <p>Lista de taskuri</p>
-  <ol>
-    <li>Corectat designul la ambele style-uri din componenta card potrivit detaliilor din figma: <a href="https://www.figma.com/design/P9DJKUG0AuGutH5WeQ3kA4/Test-UI?node-id=0-1&t=FfBuK4HTWsBIEl8Y-0">Link figma</a></li>
-    <li>Adaptat mat-card-ul pentru fiecare state descrie in figma ( default, hover, active ( clicked ), disabled )</li>
-    <li>Preluat informatiile din display component si utilizate in card component ( title si subtitle )</li>
-    <li>Containerul apare cand cardul este in active state, close button ascunde containerul si dezactiveaza active state-ul.</li>
-  </ol>
 
-  <br />
-  <p>Status mat-card: <b>Afiseaza aici statusul cardului ( open / closed )</b></p>
-  
-  <p>Inputuri pentru card-container</p>
+  <section>
+    <h2>Lista de taskuri</h2>
+    <ol>
+      <li>
+        Corectat designul la ambele style-uri din componenta card potrivit detaliilor din figma:
+        <a href="https://www.figma.com/design/P9DJKUG0AuGutH5WeQ3kA4/Test-UI?node-id=0-1&t=FfBuK4HTWsBIEl8Y-0"
+          target="_blank" rel="noopener">Link figma</a>
+      </li>
+      <li>Adaptat mat-card-ul pentru fiecare state descris în figma (default, hover, active, clicked, disabled)</li>
+      <li>Preluat informațiile din display component și utilizate în card component (title și subtitle)</li>
+      <li>Containerul apare când cardul este în active state. Close button ascunde containerul și dezactivează active
+        state-ul.</li>
+    </ol>
+  </section>
+  <section>
+    <div *ngIf="isActiveCardDisabled" class="info-message">
+      <mat-icon color="warn">block</mat-icon>
+      <span>All inputs and card are disabled until you reset the card.</span>
+    </div>
+  </section>
 
-  <div style="display: flex; flex-direction: column; width: 200px;">
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Title container Input</mat-label>
-      <input matInput type="text" >
-    </mat-form-field>
-  </div>
+  <section class="status-section">
+    <p>
+      <strong>Status mat-card:</strong>
+      Afișează aici statusul cardului ( <b>
+        {{ isActive ? 'open/active' : (isActiveCardDisabled ? 'disabled' : 'closed/inactive') }}</b>
+      )
+    </p>
+  </section>
 
   <div class="row">
-    <div class="col-md-6">
-      <app-card></app-card>
+    <div class="col-md-3">
+      <div class="card-color">
+        <mat-form-field appearance="fill">
+          <mat-label>Selectează culoarea cardului</mat-label>
+          <mat-select [(value)]="selectedColor" [disabled]="isActiveCardDisabled">
+            <mat-option *ngFor="let color of colorOptions" [value]="color.value">
+              {{ color.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="card-title-content">
+        <mat-form-field appearance="fill" class="example-form-field">
+          <mat-label>Title container Input</mat-label>
+          <input matInput type="text" [(ngModel)]="titleContainer" [disabled]="isActiveCardDisabled" />
+        </mat-form-field>
+      </div>
+      <div class="card-display">
+        <app-display (titleChange)="titleCard = $event" (subtitleChange)="subtitleCard = $event"
+          [isDisabled]="isActiveCardDisabled" [resetInput]="isResetInput"></app-display>
+      </div>
     </div>
     <div class="col-md-6">
-      <app-display></app-display>
+      <app-card [title]="titleCard" [subtitle]="subtitleCard" [containerTitle]="titleContainer" [color]="selectedColor"
+        (activeChange)="isActive = $event" (disabledChange)="onCardDisabledChange($event)"></app-card>
     </div>
   </div>
-  
-
 </div>
